@@ -1,0 +1,20 @@
+name: iOS simulator build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build iOS simulator app
+        run: xcodebuild -project ios/SceneApp.xcodeproj -scheme SceneApp -sdk iphonesimulator -configuration Debug -derivedDataPath build CODE_SIGNING_ALLOWED=NO
+      - name: Package simulator app
+        run: ditto -c -k --sequesterRsrc --keepParent build/Build/Products/Debug-iphonesimulator/SceneApp.app SceneApp-simulator.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scene-ios-simulator-build
+          path: SceneApp-simulator.zip
