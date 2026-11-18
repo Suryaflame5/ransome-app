@@ -1,0 +1,18 @@
+# Android / Gradle
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.ipa
+*.xcarchive
+
+# Secrets
+.env
+.env.*
+!.env.example
